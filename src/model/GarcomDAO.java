@@ -59,6 +59,7 @@ public class GarcomDAO {
 				garcoms.add(g);
 				System.out.println(rs.getString(1));
 			}
+			stm.close();
 			rs.close();
 			return garcoms;
 		} catch (SQLException e) {
