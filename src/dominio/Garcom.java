@@ -8,6 +8,13 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class Garcom {
+	/*
+	 * Ao invés de int, String, double, 
+	 * usem respectivamente IntegerProperty
+	 * doubleProperty e StringProperty. 
+	 * Quando forem instanciar usem new Simple[tipoescolhido]Property
+	 * */
+	
 	IntegerProperty idGarcom;
 	StringProperty nome;
 	StringProperty disponibilidade;
