@@ -24,6 +24,7 @@ public class GarcomDAO {
 			stm.setString(2, disponibilidade);
 			stm.setDouble(3, avaliacaoMedia);
 			stm.executeUpdate();
+			stm.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -35,6 +36,7 @@ public class GarcomDAO {
 			this.stm = con.prepareStatement(sql);
 			stm.setString(1, nome);
 			stm.executeUpdate();
+			stm.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -57,6 +59,7 @@ public class GarcomDAO {
 				garcoms.add(g);
 				System.out.println(rs.getString(1));
 			}
+			rs.close();
 			return garcoms;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -71,6 +74,7 @@ public class GarcomDAO {
 			stm.setString(1, novoGarcom.getNome());
 			stm.setInt(2, garcom.getIdGarcom());
 			stm.executeUpdate();
+			stm.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
