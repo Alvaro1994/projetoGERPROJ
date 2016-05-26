@@ -16,7 +16,7 @@ public class Main extends Application {
 			//Carrega a tela em root, root é do tipo Parent porque todos os
 			//containers herdam desta classe, assim não importa o container 
 			//que usamos para definir nossa interface. 
-			Parent root = FXMLLoader.load(getClass().getResource("/telas/CRUDgarcom.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource("/telas/Principal.fxml"));
 			Scene scene = new Scene(root);
 			//Adiciona o icnone que está na pasta imagens
 			primaryStage.getIcons().add(new Image("/imagens/icone.jpg"));

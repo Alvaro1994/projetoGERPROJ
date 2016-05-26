@@ -12,10 +12,11 @@ import dominio.Garcom;
 
 public class GarcomDAO {
 	private String sql;
-	private Connection con =  FactoryConnection.getConnection();
+	private Connection con;
 	private PreparedStatement stm;
 	private ResultSet rs;
 	public void inserirGarcom(String nome, String disponibilidade) {
+		this.con = FactoryConnection.getConnection();
 		double avaliacaoMedia = 0.0;
 		this.sql = "INSERT INTO restaurante.garcom(nome,disponibilidade,avaliacaoMedia) VALUES (?,?,?)";
 		try {
@@ -25,18 +26,21 @@ public class GarcomDAO {
 			stm.setDouble(3, avaliacaoMedia);
 			stm.executeUpdate();
 			stm.close();
+			con.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	public void excluirGarcom(String nome) {
+		this.con = FactoryConnection.getConnection();
 		this.sql = "DELETE FROM restaurante.garcom WHERE nome =?";
 		try {
 			this.stm = con.prepareStatement(sql);
 			stm.setString(1, nome);
 			stm.executeUpdate();
 			stm.close();
+			con.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -44,6 +48,7 @@ public class GarcomDAO {
 		
 	}
 	public ArrayList<Garcom> pesquisarGarcom(String nome) {
+		this.con = FactoryConnection.getConnection();
 		this.sql = "SELECT nome,disponibilidade,avaliacaoMedia,idGarcom FROM restaurante.garcom WHERE nome LIKE ?";
 		ArrayList<Garcom> garcoms = new ArrayList<Garcom>();
 		try {
@@ -61,6 +66,7 @@ public class GarcomDAO {
 			}
 			stm.close();
 			rs.close();
+			con.close();
 			return garcoms;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -69,6 +75,7 @@ public class GarcomDAO {
 		return garcoms;
 	}
 	public void alterarGarcom(Garcom garcom, Garcom novoGarcom) {
+		this.con = FactoryConnection.getConnection();
 		this.sql = "UPDATE restaurante.garcom SET nome= ? WHERE idGarcom = ? ";
 		try {
 			this.stm = con.prepareStatement(sql);
@@ -76,6 +83,7 @@ public class GarcomDAO {
 			stm.setInt(2, garcom.getIdGarcom());
 			stm.executeUpdate();
 			stm.close();
+			con.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<SplitPane fx:id="spPrincipal" dividerPositions="0.24581939799331104" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="850.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.65" fx:controller="telas.PrincipalController">
+  <items>
+    <AnchorPane fx:id="apOpcoes" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+         <children>
+            <VBox fx:id="vbBotoes" layoutX="5.0" layoutY="69.0" spacing="10.0">
+               <children>
+                  <Button fx:id="btnGarcom" mnemonicParsing="false" prefHeight="100.0" prefWidth="195.0" text="Garçom" />
+                  <Button fx:id="btnCardapio" mnemonicParsing="false" prefHeight="100.0" prefWidth="195.0" text="Cardapio" />
+                  <Button fx:id="btnMesas" mnemonicParsing="false" prefHeight="100.0" prefWidth="195.0" text="Mesas" />
+                  <Button fx:id="btnPedido" mnemonicParsing="false" prefHeight="100.0" prefWidth="195.0" text="Pedido" />
+               </children>
+            </VBox>
+         </children></AnchorPane>
+    <AnchorPane fx:id="apVisualizar" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+         <children>
+            <ImageView fx:id="imgLogo" fitHeight="151.0" fitWidth="557.0" layoutX="47.0" layoutY="197.0" pickOnBounds="true" preserveRatio="true" />
+         </children></AnchorPane>
+  </items>
+</SplitPane>
