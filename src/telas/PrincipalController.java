@@ -1,5 +1,6 @@
 package telas;
 
+import java.awt.Font;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -9,9 +10,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 
 import javafx.scene.control.SplitPane;
-
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.AnchorPane;
-
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import javafx.scene.layout.VBox;
@@ -63,8 +64,21 @@ public class PrincipalController implements Initializable{
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		//iniciarMysql();
+		//Inserindo ações no butão ao clicar
 		btnGarcom.setOnMouseClicked(event -> chamarGarcom());
 		
+		//Inserindo imagens nos botões.
+		btnGarcom.setGraphic(new ImageView(new Image("/imagens/garcom.png")));
+		btnMesas.setGraphic(new ImageView(new Image("/imagens/mesa.jpg")));
+		btnCardapio.setGraphic(new ImageView(new Image("imagens/menu.jpg")));
+		btnPedido.setGraphic(new ImageView(new Image("imagens/pedido.jpg")));
+		
+		//Inserindo texto que aparece ao deixar o mouse parado sobre
+		//o botão
+		btnGarcom.setTooltip(new Tooltip("Cadastro Garçom"));
+		btnCardapio.setTooltip(new Tooltip("Cadastro de Cardápio"));
+		btnMesas.setTooltip(new Tooltip("Cadastro de Mesas"));
+		btnPedido.setTooltip(new Tooltip("Cadastro de Pedido"));
 	}
 
 }

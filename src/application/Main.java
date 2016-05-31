@@ -26,7 +26,8 @@ public class Main extends Application {
 					.getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.setResizable(false);
-			primaryStage.setTitle("Cadastro de Garçom");
+			//Titulo da Janela
+			primaryStage.setTitle("Restaurante");
 			primaryStage.show();
 		} catch(Exception e) {
 			e.printStackTrace();
