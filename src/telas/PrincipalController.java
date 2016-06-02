@@ -1,6 +1,6 @@
 package telas;
 
-import java.awt.Font;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -63,7 +63,8 @@ public class PrincipalController implements Initializable{
 	}
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		//iniciarMysql();
+		
+		iniciarMysql();
 		//Inserindo ações no butão ao clicar
 		btnGarcom.setOnMouseClicked(event -> chamarGarcom());
 		

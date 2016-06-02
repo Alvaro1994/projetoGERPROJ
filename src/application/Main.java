@@ -29,6 +29,8 @@ public class Main extends Application {
 			//Titulo da Janela
 			primaryStage.setTitle("Restaurante");
 			primaryStage.show();
+			//Evento que ocorre quando a janela é fechada
+			primaryStage.setOnCloseRequest(event -> System.out.println("Encerrando"));
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
