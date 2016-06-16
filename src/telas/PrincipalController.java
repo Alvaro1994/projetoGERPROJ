@@ -61,13 +61,22 @@ public class PrincipalController implements Initializable{
 			e.printStackTrace();
 		}
 	}
+	public void chamarMenu() {
+		apVisualizar.getChildren().removeAll(apVisualizar.getChildren());
+		try {
+			apVisualizar.getChildren().add(FXMLLoader.load(getClass().getResource("/telas/Restaurante.fxml")));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		
 		iniciarMysql();
 		//Inserindo ações no butão ao clicar
 		btnGarcom.setOnMouseClicked(event -> chamarGarcom());
-		
+		btnCardapio.setOnMouseClicked(event -> chamarMenu());
 		//Inserindo imagens nos botões.
 		btnGarcom.setGraphic(new ImageView(new Image("/imagens/garcom.png")));
 		btnMesas.setGraphic(new ImageView(new Image("/imagens/mesa.jpg")));
