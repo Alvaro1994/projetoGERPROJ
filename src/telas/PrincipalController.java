@@ -71,24 +71,34 @@ public class PrincipalController implements Initializable {
 			e.printStackTrace();
 		}
 	}
+	
+	public void chamarMesas() {
+		apVisualizar.getChildren().removeAll(apVisualizar.getChildren());
+		try {
+			// usado paracarregar a interface gráfica e o seu
+			// respectivo controle
+			FXMLLoader load = new FXMLLoader();
+			// recuperando a interface
+			load.setLocation(getClass().getResource("/telas/Mesas.fxml"));
+			Parent janela = load.load();
+			// recuperando o controle.
+			MesasController ctrl = load.getController();
+			/// ctrl.pesquisar();
+			// Parent janela =
+			/// FXMLLoader.load(getClass().getResource("/telas/Restaurante.fxml"));
+
+			// ctrl.initialize(janela,
+			// getClass().getResource("/telas/Restaurante.fxml"));
+			apVisualizar.getChildren().add(janela);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 	public void chamarMenu() {
 		apVisualizar.getChildren().removeAll(apVisualizar.getChildren());
 		try {
-			/**
-			 * // Carrega a person overview. FXMLLoader loader = new
-			 * FXMLLoader();
-			 * loader.setLocation(MainApp.class.getResource("view/PersonOverview.fxml"));
-			 * AnchorPane personOverview = (AnchorPane) loader.load();
-			 * 
-			 * // Define a person overview no centro do root layout.
-			 * rootLayout.setCenter(personOverview);
-			 * 
-			 * // Dá ao controlador acesso à the main app.
-			 * PersonOverviewController controller = loader.getController();
-			 * controller.setMainApp(this);
-			 * 
-			 */
 			// usado paracarregar a interface gráfica e o seu
 			// respectivo controle
 			FXMLLoader load = new FXMLLoader();
@@ -124,7 +134,7 @@ public class PrincipalController implements Initializable {
 			System.out.println("Porta 12345 aberta!");
 			while (true) {
 				cliente = servidor.accept();
-				System.out.println("Nova conexão com o cliente " + cliente.getInetAddress().getHostAddress());
+				System.out.println("Nova conexão com o cliente " + cliente.getInetAddress().getHostAddress()+" Porta:"+cliente.getLocalPort());
 				// adiciona saida do cliente à lista
 				PrintStream ps = new PrintStream(cliente.getOutputStream());				
 				this.clientes.add(ps);
@@ -148,6 +158,7 @@ public class PrincipalController implements Initializable {
 		// Inserindo ações no butão ao clicar
 		btnGarcom.setOnMouseClicked(event -> chamarGarcom());
 		btnCardapio.setOnMouseClicked(event -> chamarMenu());
+		btnMesas.setOnMouseClicked(event -> chamarMesas());
 		// Inserindo imagens nos botões.
 		btnGarcom.setGraphic(new ImageView(new Image("/imagens/garcom.png")));
 		btnMesas.setGraphic(new ImageView(new Image("/imagens/mesa.jpg")));
