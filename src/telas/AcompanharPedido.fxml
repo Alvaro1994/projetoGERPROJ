@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<SplitPane fx:id="spPrincipal" dividerPositions="0.19063545150501673" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+  <items>
+    <AnchorPane fx:id="anpBotoes" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+         <children>
+            <FlowPane fx:id="flpBotoes" layoutX="14.0" prefHeight="398.0" prefWidth="159.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <VBox fx:id="vbBotoes" spacing="5.0">
+                     <children>
+                        <Button fx:id="btnSalvar" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" text="Salvar" />
+                        <Button fx:id="btnFechar" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" text="Fechar" />
+                        <Button fx:id="btnExcluir" lineSpacing="30.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" text="Excluir" />
+                        <Button fx:id="btnVoltar" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" text="Voltar" />
+                     </children>
+                     <FlowPane.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </FlowPane.margin>
+                  </VBox>
+               </children>
+            </FlowPane>
+         </children></AnchorPane>
+    <AnchorPane fx:id="anpPedido" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+         <children>
+            <VBox fx:id="vbPedido" layoutX="20.0" layoutY="14.0" prefHeight="398.0" prefWidth="481.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <Text fx:id="txtPedido" strokeType="OUTSIDE" strokeWidth="0.0" text="Pedido">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Text>
+                  <HBox fx:id="hbDados" prefHeight="45.0" prefWidth="481.0" spacing="5.0">
+                     <children>
+                        <Label fx:id="lbMesa" text="Mesa" />
+                        <TextField fx:id="tfMesa" prefHeight="25.0" prefWidth="20.0" />
+                        <Label fx:id="lbGarcom" text="Garçom" />
+                        <TextField fx:id="tfGarcom" prefHeight="25.0" prefWidth="100.0" />
+                        <Label fx:id="lbDesconto" text="Desconto" />
+                        <TextField fx:id="tfDesconto" prefHeight="25.0" prefWidth="40.0" />
+                        <Label fx:id="lbTotal" text="Total" />
+                        <TextField fx:id="tfTotal" prefHeight="25.0" prefWidth="61.0" />
+                     </children>
+                  </HBox>
+                  <ScrollPane fx:id="srpPedido" prefHeight="359.0" prefWidth="465.0">
+                     <content>
+                        <TableView fx:id="tvPedido" prefHeight="354.0" prefWidth="466.0">
+                          <columns>
+                            <TableColumn fx:id="tcNome" prefWidth="201.0" text="Pedido" />
+                            <TableColumn fx:id="tcQuantidade" prefWidth="75.0" text="Quantidade" />
+                              <TableColumn fx:id="tcValor" prefWidth="93.0" text="Valor R$" />
+                              <TableColumn fx:id="Status" prefWidth="96.0" text="Status" />
+                          </columns>
+                        </TableView>
+                     </content>
+                  </ScrollPane>
+               </children>
+            </VBox>
+         </children></AnchorPane>
+  </items>
+</SplitPane>

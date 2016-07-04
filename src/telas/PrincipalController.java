@@ -83,6 +83,7 @@ public class PrincipalController implements Initializable {
 			Parent janela = load.load();
 			// recuperando o controle.
 			MesasController ctrl = load.getController();
+			ctrl.setPrincipal(apVisualizar);
 			/// ctrl.pesquisar();
 			// Parent janela =
 			/// FXMLLoader.load(getClass().getResource("/telas/Restaurante.fxml"));

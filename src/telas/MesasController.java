@@ -1,10 +1,13 @@
 package telas;
 
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
@@ -18,6 +21,7 @@ import javafx.scene.text.TextAlignment;
 
 
 public class MesasController implements Initializable{
+	private AnchorPane apVisualizar;
 	@FXML
 	private AnchorPane apPrincipal;
 	@FXML
@@ -26,8 +30,27 @@ public class MesasController implements Initializable{
 	private GridPane grpMessas;
 	@FXML
 	private Text txtMesas;
+	public void setPrincipal(AnchorPane apVisualizar) {
+		this.apVisualizar = apVisualizar;
+	}
 	public void mudarStatus(Button btn) {
-		System.out.println(btn.getId());
+		apVisualizar.getChildren().removeAll(apVisualizar.getChildren());
+		try {
+			// usado paracarregar a interface gráfica e o seu
+			// respectivo controle
+			FXMLLoader load = new FXMLLoader();
+			// recuperando a interface
+			load.setLocation(getClass().getResource("/telas/AcompanharPedido.fxml"));
+			Parent janela = load.load();
+			// recuperando o controle.
+			AcompanharPedidoController ctrl = load.getController();
+			ctrl.setPrincipal(apVisualizar);
+			apVisualizar.getChildren().add(janela);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 	public void carregarMessas() {
 		//grpMessas.setGridLinesVisible(true);
@@ -60,5 +83,6 @@ public class MesasController implements Initializable{
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		carregarMessas();
+		
 	}
 }

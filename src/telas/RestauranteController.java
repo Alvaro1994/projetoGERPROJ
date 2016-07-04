@@ -81,7 +81,7 @@ public class RestauranteController implements Initializable {
 	public void carregarTabela() {
 		tcNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
 		tcTipo.setCellValueFactory(new PropertyValueFactory<>("tipo"));
-		tcValor.setCellValueFactory(new PropertyValueFactory<>("valor"));
+		tcValor.setCellValueFactory(new PropertyValueFactory<>("preco"));
 	}
 
 	public void limparTabela() {
@@ -103,7 +103,7 @@ public class RestauranteController implements Initializable {
 		if (btnSalvar.getText().equals("Salvar")) {
 			try {
 				produtoDAO.inserirProduto(tfNome.getText(), cbTipo.getSelectionModel().getSelectedItem(), tfDescricao.getText(),
-						Double.parseDouble(tfValor.getText()));
+						Double.parseDouble(tfValor.getText().replace(",",".")));
 			} catch (NumberFormatException e) {
 				Alert dialogoErro = new Alert(Alert.AlertType.ERROR);
 				dialogoErro.setTitle("Erro!!!");
@@ -120,7 +120,7 @@ public class RestauranteController implements Initializable {
 			Produto p = new Produto();
 			p.setNome(tfNome.getText());
 			p.setDescricao(tfDescricao.getText());
-			p.setPreco(Double.parseDouble(tfValor.getText()));
+			p.setPreco(Double.parseDouble(tfValor.getText().replace(",",".")));
 			p.setTipo(cbTipo.getSelectionModel().getSelectedItem());
 			produtoDAO.alterarProduto(produtoSelecionado, p);
 			cancelar();
@@ -159,7 +159,7 @@ public class RestauranteController implements Initializable {
 					cbTipo.getSelectionModel().select(produtoSelecionado.getTipo());
 					tfNome.setText(produtoSelecionado.getNome());
 					tfDescricao.setText(produtoSelecionado.getDescricao());
-					tfValor.setText(String.valueOf(produtoSelecionado.getPreco()));
+					tfValor.setText(String.valueOf(produtoSelecionado.getPreco()).replace(".", ","));
 					btnSalvar.setText("Alterar");
 					btnExcluir.setDisable(false);
 				}
