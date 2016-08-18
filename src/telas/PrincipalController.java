@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
+import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -44,6 +46,7 @@ public class PrincipalController implements Initializable {
 	@FXML
 	private ImageView imgLogo;
 
+	private MesasController mesasController;
 	ArrayList<PrintStream> clientes = new ArrayList<PrintStream>();
 
 	public void iniciarMysql() {
@@ -82,8 +85,8 @@ public class PrincipalController implements Initializable {
 			load.setLocation(getClass().getResource("/telas/Mesas.fxml"));
 			Parent janela = load.load();
 			// recuperando o controle.
-			MesasController ctrl = load.getController();
-			ctrl.setPrincipal(apVisualizar);
+			this.mesasController = load.getController();
+			this.mesasController.setPrincipal(apVisualizar);
 			/// ctrl.pesquisar();
 			// Parent janela =
 			/// FXMLLoader.load(getClass().getResource("/telas/Restaurante.fxml"));
@@ -120,10 +123,30 @@ public class PrincipalController implements Initializable {
 			e.printStackTrace();
 		}
 	}
-	public void trataCliente(InputStream is) {
+	public void trataCliente(InputStream is, MesasController mesasController) {
 		Scanner t = new Scanner(is);
+		
 		while (t.hasNextLine()) {
-			System.out.println(t.nextLine());
+			String str = t.nextLine();
+			String[] operacoes = str.split(" ");
+			System.out.println(str);
+			Platform.runLater(new Runnable() {
+				@Override
+				public void run() {
+					if (operacoes[1].equals("confirmar")) {
+						Button btn = (Button)mesasController.getMessas().get(Integer.parseInt(operacoes[0])).getChildren().get(0);
+						Image img = new Image("/imagens/mesa_ocupada.png");
+						ImageView viewimg = new ImageView(img);
+						btn.setGraphic(viewimg);
+					}else if (operacoes[1].equals("cancelarPedido")) {
+						Button btn = (Button)mesasController.getMessas().get(Integer.parseInt(operacoes[0])).getChildren().get(0);
+						Image img = new Image("/imagens/mesa_vazia.png");
+						ImageView viewimg = new ImageView(img);
+						btn.setGraphic(viewimg);
+					}
+				}
+				
+			});
 			
 		}
 		t.close();
@@ -140,7 +163,16 @@ public class PrincipalController implements Initializable {
 				PrintStream ps = new PrintStream(cliente.getOutputStream());				
 				this.clientes.add(ps);
 				InputStream is = cliente.getInputStream();
-				Thread t2 = new Thread(() ->trataCliente(is));
+				/*Task<Void> tarefa = new Task<Void>(){
+
+					@Override
+					protected Void call() throws Exception {
+						trataCliente(is);
+						return null;
+					}
+					
+				};*/
+				Thread t2 = new Thread(()->trataCliente(is,this.mesasController));
 				t2.start();
 			}
 			
@@ -155,7 +187,7 @@ public class PrincipalController implements Initializable {
 		Thread t = new Thread(() -> iniciarServidor());
 		t.start();
 		
-		iniciarMysql();
+		
 		// Inserindo ações no butão ao clicar
 		btnGarcom.setOnMouseClicked(event -> chamarGarcom());
 		btnCardapio.setOnMouseClicked(event -> chamarMenu());

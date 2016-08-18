@@ -2,8 +2,13 @@ package telas;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import dominio.Pedido;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -11,13 +16,13 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 
 import javafx.scene.text.Text;
-
+import model.PedidoDAO;
 import javafx.scene.layout.HBox;
 
 import javafx.scene.control.SplitPane;
 
 import javafx.scene.control.TextField;
-
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.Label;
 
 import javafx.scene.control.ScrollPane;
@@ -56,39 +61,36 @@ public class AcompanharPedidoController implements Initializable{
 	private VBox vbPedido;
 	@FXML
 	private Text txtPedido;
-	@FXML
-	private HBox hbDados;
-	@FXML
-	private Label lbMesa;
-	@FXML
-	private TextField tfMesa;
-	@FXML
-	private Label lbGarcom;
-	@FXML
-	private TextField tfGarcom;
-	@FXML
-	private Label lbDesconto;
-	@FXML
-	private TextField tfDesconto;
-	@FXML
-	private Label lbTotal;
-	@FXML
-	private TextField tfTotal;
-	@FXML
 	private ScrollPane srpPedido;
 	@FXML
-	private TableView tvPedido;
+	private TableView<Pedido> tvPedido;
 	@FXML
-	private TableColumn tcNome;
+	private TableColumn<Pedido,String> tcNome;
 	@FXML
-	private TableColumn tcQuantidade;
+	private TableColumn<Pedido,Integer> tcQuantidade;
 	@FXML
-	private TableColumn tcValor;
+	private TableColumn<Pedido,Double> tcValor;
 	@FXML
-	private TableColumn Status;
+	private TableColumn<Pedido,String> tcStatus;
+	@FXML
+	private TableColumn<Pedido,Double> tcTotal;
+	PedidoDAO pdao = new PedidoDAO();
+	private int idPedidoAtual;
+	private int mesaAtual;
+	ArrayList<Pedido> pedidosItens = new ArrayList<Pedido>();
+	Pedido itemPedidoSelecionado = new Pedido();
 	public void setPrincipal(AnchorPane apVisualizar) {
 		this.apVisualizar = apVisualizar;
 	}
+	public void carregarTabela() {
+		tcNome.setCellValueFactory(new PropertyValueFactory<>("nomeProduto"));
+		tcValor.setCellValueFactory(new PropertyValueFactory<>("valorProduto"));
+		tcTotal.setCellValueFactory(new PropertyValueFactory<>("total"));
+		tcStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
+		tcQuantidade.setCellValueFactory(new PropertyValueFactory<>("quantidade"));
+		
+	}
+	
 	public void voltar() {
 		apVisualizar.getChildren().removeAll(apVisualizar.getChildren());
 		try {
@@ -107,10 +109,39 @@ public class AcompanharPedidoController implements Initializable{
 			e.printStackTrace();
 		}
 	}
+	public void adicionarTabela() {
+		tvPedido.getItems().removeAll(pedidosItens);
+		pedidosItens.removeAll(pedidosItens);
+		pedidosItens.addAll(pdao.selecionarItens(mesaAtual));
+		System.out.println("pesquisando itens");
+		tvPedido.setItems(FXCollections.observableArrayList(pedidosItens));
+	}
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		btnVoltar.setOnMouseClicked(event -> voltar());
+		carregarTabela();
+		tvPedido.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Pedido>() {
+
+			@Override
+			public void changed(ObservableValue<? extends Pedido> arg0, Pedido antigo, Pedido novo) {
+				if (itemPedidoSelecionado != null) {
+					itemPedidoSelecionado = novo;
+				}
+				
+			}
+		});
 		
+		btnExcluir.setOnMouseClicked(event ->adicionarTabela());
+		btnSalvar.setOnMouseClicked(event -> mudarStatus());
+	}
+	public void mudarStatus() {
+		pdao.alterarStatus(itemPedidoSelecionado.getIdPedido());
+		
+	}
+	public int getMesaAtual() {
+		return mesaAtual;
+	}
+	public void setMesaAtual(int mesaAtual) {
+		this.mesaAtual = mesaAtual;
 	}
 
 }

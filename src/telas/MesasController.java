@@ -3,6 +3,7 @@ package telas;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -30,6 +31,8 @@ public class MesasController implements Initializable{
 	private GridPane grpMessas;
 	@FXML
 	private Text txtMesas;
+	private ArrayList<VBox> messas = new ArrayList<>();
+	
 	public void setPrincipal(AnchorPane apVisualizar) {
 		this.apVisualizar = apVisualizar;
 	}
@@ -44,7 +47,12 @@ public class MesasController implements Initializable{
 			Parent janela = load.load();
 			// recuperando o controle.
 			AcompanharPedidoController ctrl = load.getController();
-			ctrl.setPrincipal(apVisualizar);
+			
+			int idMesa = Integer.parseInt(btn.getId());
+			System.out.println("Mesa atual"+idMesa);
+			ctrl.setMesaAtual(idMesa);
+			//ctrl.setPrincipal(apVisualizar);
+			
 			apVisualizar.getChildren().add(janela);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -52,6 +60,7 @@ public class MesasController implements Initializable{
 		}
 
 	}
+	
 	public void carregarMessas() {
 		//grpMessas.setGridLinesVisible(true);
 		int cont = 1;
@@ -67,6 +76,7 @@ public class MesasController implements Initializable{
 				Image img = new Image("/imagens/mesa_vazia.png");
 				ImageView viewimg = new ImageView(img);
 				Button btnMesa = new Button();
+				btnMesa.setId(cont+"");
 				btnMesa.setPrefHeight(100.0);
 				btnMesa.setPrefHeight(100.0);
 				btnMesa.setMinHeight(100.0);
@@ -75,6 +85,7 @@ public class MesasController implements Initializable{
 				btnMesa.setId(Integer.toString(cont));
 				btnMesa.setOnMouseClicked((event)->mudarStatus(btnMesa));
 				vb.getChildren().addAll(btnMesa,txtStatus);
+				this.messas.add(vb);
 				grpMessas.add(vb, j, i);
 				cont++;
 			}
@@ -84,5 +95,11 @@ public class MesasController implements Initializable{
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		carregarMessas();
 		
+	}
+	public ArrayList<VBox> getMessas() {
+		return messas;
+	}
+	public void setMessas(ArrayList<VBox> messas) {
+		this.messas = messas;
 	}
 }

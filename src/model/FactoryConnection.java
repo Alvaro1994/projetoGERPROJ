@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 
 public class FactoryConnection {
-	private static final String URL_MYSQL ="jdbc:mysql://localhost/restaurante";
+	private static final String URL_MYSQL ="jdbc:mysql://localhost/restaurante?useSSL=false";
 	private static final String DRIVER_CLASS = "com.mysql.jdbc.Driver";
 	private static final String USERNAME = "root";
 	private static final String PASSWORD = "";

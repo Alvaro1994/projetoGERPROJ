@@ -77,8 +77,9 @@ public class RestauranteController implements Initializable {
 	private TableColumn<Produto, String> tcNome;
 	@FXML
 	private TableColumn<Produto, Double> tcValor;
-
+	
 	public void carregarTabela() {
+
 		tcNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
 		tcTipo.setCellValueFactory(new PropertyValueFactory<>("tipo"));
 		tcValor.setCellValueFactory(new PropertyValueFactory<>("preco"));

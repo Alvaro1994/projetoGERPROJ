@@ -10,6 +10,10 @@ import javafx.scene.image.Image;
 
 
 public class Main extends Application {
+	public void stop() {
+		System.out.println("Encerrando");
+		Runtime.getRuntime().exit(0);
+	}
 	@Override
 	public void start(Stage primaryStage) {
 		try {
@@ -30,7 +34,7 @@ public class Main extends Application {
 			primaryStage.setTitle("Restaurante");
 			primaryStage.show();
 			//Evento que ocorre quando a janela é fechada
-			primaryStage.setOnCloseRequest(event -> System.out.println("Encerrando"));
+			primaryStage.setOnCloseRequest(event -> stop());
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
